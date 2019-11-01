@@ -31,7 +31,7 @@ func searchLastPosition(nums []int, left, right, target int) int {
 		return -1
 	}
 
-	// move right one step 
+	// move right one step
 	mid := (right-left)/2 + left
 	if mid+1 <= right {
 		mid++
