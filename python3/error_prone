@@ -1,3 +1,9 @@
 1. // vs. /
 2. tuple can not be modified
 3. sort by dict value: sorted(dt.items(), key=lambda x: (x[1], x[0]))
+4. ~(a ^ 0xffffffff), parse 32bit number start with bit 1 into negative number
+   a ^ 0xffffffff reverse all bits, i.e. after xor -3(0b11111111111111111111111111111101) become 2(0b10)
+   then ~x = -x - 1, get -3
+5. str(list) use this to act as dict key
+6. bin(n & 0xffffffff) get negative number two's complement
+7. can't use list as set's elements, or dict's key
