@@ -13,12 +13,12 @@ class Solution:
                         dt[i].append(v + [cur])
 
         res = set()
-        for x in dt.values():
-            for xx in x:
-                if len(xx) > 1:
-                    res.add(tuple(xx))
+        for u in dt.values():
+            for v in u:
+                if len(v) > 1:
+                    res.add(tuple(v))
 
-        return list(res)
+        return [list(x) for x in res]
 
     def findSubsequences2(self, nums: List[int]) -> List[List[int]]:
         res = set()

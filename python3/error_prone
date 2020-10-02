@@ -7,3 +7,7 @@
 5. str(list) use this to act as dict key
 6. bin(n & 0xffffffff) get negative number two's complement
 7. can't use list as set's elements, or dict's key
+8. max(list), list can't be empty
+9. 0692: custom sort rule.
+
+100. check it and think about corner case before submitting

@@ -4,7 +4,7 @@ from typing import List
 class Solution:
     # dp[i][j]: coins obtained from bursting all the balloons between index i and j (not including i or j)
     # If k is the index of the last balloon burst in (i, j)
-    # dp[i][j] = max(nums[i] * nums[k] * nums[j] + dp[i][k] + dp[k][j]) (k in (i+1,j))
+    # dp[i][j] = max(nums[i] * nums[k] * nums[j] + dp[i][k] + dp[k][j]) (k in [i+1,j))
     def maxCoins(self, nums: List[int]) -> int:
         if not nums:
             return 0

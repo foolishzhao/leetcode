@@ -1,4 +1,5 @@
 from typing import List
+import bisect
 
 
 class Solution:
@@ -42,6 +43,16 @@ class Solution:
                 right = mid - 1
             else:
                 left = mid + 1
+
+    def lengthOfLIS3(self, nums: List[int]) -> int:
+        tail = list()
+        for num in nums:
+            if not tail or tail[-1] < num:
+                tail.append(num)
+            else:
+                idx = bisect.bisect_left(tail, num)
+                tail[idx] = num
+        return len(tail)
 
 
 if __name__ == '__main__':

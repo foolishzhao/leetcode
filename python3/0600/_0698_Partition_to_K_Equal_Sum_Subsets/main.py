@@ -7,25 +7,46 @@ class Solution:
         if s % k:
             return False
 
-        m, n = s // k, len(nums)
-        if max(nums) > m:
+        target = sum(nums) // k
+        if max(nums) > target:
             return False
 
-        return self.dfs(nums, [False] * n, k, 0, 0, m)
+        def dfs(curPos, curSum, t):
+            if t == 1:
+                return True
 
-    def dfs(self, nums, visited, k, curSum, curPos, target):
-        if k == 1:
-            return True
-
-        if curSum == target:
-            return self.dfs(nums, visited, k - 1, 0, 0, target)
-        elif curSum > target:
-            return False
-        else:
-            for i in range(curPos, len(nums)):
+            for i in range(curPos, n):
                 if not visited[i]:
                     visited[i] = True
-                    if self.dfs(nums, visited, k, curSum + nums[i], i + 1, target):
-                        return True
+                    if curSum + nums[i] < target:
+                        if dfs(i + 1, curSum + nums[i], t):
+                            return True
+                    elif curSum + nums[i] == target:
+                        if dfs(0, 0, t - 1):
+                            return True
                     visited[i] = False
             return False
+
+        n = len(nums)
+        visited = [False] * n
+        return dfs(0, 0, k)
+
+    # Time complexity: O(n*2^n)
+    def canPartitionKSubsets2(self, nums: List[int], k: int) -> bool:
+        s = sum(nums)
+        if s % k:
+            return False
+
+        tar, n = sum(nums) // k, len(nums)
+        if max(nums) > tar:
+            return False
+
+        dp = [-1] * (1 << n)
+        dp[0] = 0
+        for i in range(1 << n):
+            if dp[i] == -1:
+                continue
+            for j in range(n):
+                if not (i & (1 << j)) and dp[i] + nums[j] <= tar:
+                    dp[i | (1 << j)] = (dp[i] + nums[j]) % tar
+        return not dp[-1]

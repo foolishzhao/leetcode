@@ -34,9 +34,9 @@ class Solution:
         # incorrect if x == 0, but y < 0
         # if x > y:
         #     return self.gcd(y, x)
-
         return y if not x else self.gcd(y % x, x)
 
 
 if __name__ == '__main__':
-    print(Solution().gcd(-1, 0))
+    print(Solution().gcd(-3, -6))
+    print(Solution().gcd(-3, 6))

@@ -73,3 +73,22 @@ class MyCalendarTwo:
             return True
         else:
             return False
+
+
+class MyCalendarTwo2:
+
+    def __init__(self):
+        self.overlap = list()
+        self.calendar = list()
+
+    def book(self, start: int, end: int) -> bool:
+        for u, v in self.overlap:
+            if start < v and end > u:
+                return False
+
+        for u, v in self.calendar:
+            if start < v and end > u:
+                self.overlap.append((max(start, u), min(end, v)))
+
+        self.calendar.append((start, end))
+        return True
