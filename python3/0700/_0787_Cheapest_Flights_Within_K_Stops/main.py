@@ -18,23 +18,32 @@ class Solution:
         return -1 if dist[dst] == float('inf') else dist[dst]
 
     # dijkstra
-    def findCheapestPrice2(self, n: int, flights: List[List[int]], src: int, dst: int, K: int) -> int:
-        edges = collections.defaultdict(dict)
+    def findCheapestPrice2(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
+        graph = collections.defaultdict(list)
         for u, v, w in flights:
-            edges[u][v] = w
+            graph[u].append([v, w])
 
-        pq = [(0, src, K + 1)]
+        pq, seen = [(0, src, k + 1)], dict()
         while pq:
-            p, u, k = heapq.heappop(pq)
+            d, u, s = heapq.heappop(pq)
             if u == dst:
-                return p
+                return d
 
-            if k > 0:
-                for v, w in edges[u].items():
-                    heapq.heappush(pq, (p + w, v, k - 1))
+            if u in seen and seen[u] >= s:
+                continue
+            seen[u] = s
 
+            if s:
+                for v, w in graph[u]:
+                    heapq.heappush(pq, (d + w, v, s - 1))
         return -1
 
 
 if __name__ == '__main__':
-    Solution().findCheapestPrice(4, [[0, 1, 1], [0, 2, 5], [1, 2, 1], [2, 3, 1]], 0, 3, 1)
+    Solution().findCheapestPrice2(
+        4,
+        [[0, 1, 1], [0, 2, 5], [1, 2, 1], [2, 3, 1]],
+        0,
+        3,
+        1,
+    )
