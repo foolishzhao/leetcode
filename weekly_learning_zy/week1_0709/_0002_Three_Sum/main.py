@@ -1,7 +1,8 @@
 class Solution:
     def threesum(self,nums):
         res = []
-        lent = nums.__len__()
+        ##lent = nums.__len__()
+        lent = len(nums)
         nums.sort()
         i=0
         while i<lent-2:
@@ -23,8 +24,8 @@ class Solution:
             while i<lent-2 and nums[i]==nums[i+1]:
                 i=i+1
             i=i+1
-        print res
+        print (res)
         return res
 if __name__ == '__main__':
-    Solution().threesum([-1, 0, 1, 2, -1, -4])
+    Solution().threesum([-1, 0, 1, 2,-1,-1, -4])
 
