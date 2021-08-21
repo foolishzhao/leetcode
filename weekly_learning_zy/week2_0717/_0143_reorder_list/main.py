@@ -1,4 +1,4 @@
-from python3.common.define import ListNode
+dfrom python3.common.define import ListNode
 
 class Solution:
     def reorderList(self, head:ListNode) -> None:
