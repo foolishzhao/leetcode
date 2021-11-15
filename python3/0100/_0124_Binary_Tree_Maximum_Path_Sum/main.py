@@ -1,25 +1,19 @@
 from python3.common.define import TreeNode
+from typing import Optional
 
 
 class Solution:
-    def maxPathSum(self, root: TreeNode) -> int:
+    def maxPathSum(self, root: Optional[TreeNode]) -> int:
+        def dfs(cur):
+            if not cur:
+                return float('-inf'), float('-inf')
+
+            lRes, lMax = dfs(cur.left)
+            rRes, rMax = dfs(cur.right)
+            return max(lRes, rRes, cur.val + max(lMax, 0) + max(rMax, 0)), cur.val + max(lMax, rMax, 0)
+
         if not root:
             return 0
 
-        _, res = self.maxPathSumHelper(root)
+        res, _ = dfs(root)
         return res
-
-    def maxPathSumHelper(self, root: TreeNode) -> (int, int):
-        if not root:
-            return -(1 << 31), -(1 << 31)
-
-        lSingle, lRes = self.maxPathSumHelper(root.left)
-        rSingle, rRes = self.maxPathSumHelper(root.right)
-
-        curRes = root.val
-        if lSingle > 0:
-            curRes += lSingle
-        if rSingle > 0:
-            curRes += rSingle
-
-        return root.val + max(0, lSingle, rSingle), max(lRes, curRes, rRes)

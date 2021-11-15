@@ -3,23 +3,29 @@ from typing import List
 
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
-        if not grid or not grid[0]:
-            return 0
+        def bfs(u, v):
+            q = [(u, v)]
+            while q:
+                u, v = q.pop(0)
+                if 0 <= u < m and 0 <= v < n and grid[u][v] == '1':
+                    grid[u][v] = '0'
+                    q.append((u + 1, v))
+                    q.append((u - 1, v))
+                    q.append((u, v + 1))
+                    q.append((u, v - 1))
+
+        def dfs(u, v):
+            if 0 <= u < m and 0 <= v < n and grid[u][v] == '1':
+                grid[u][v] = '0'
+                dfs(u + 1, v)
+                dfs(u - 1, v)
+                dfs(u, v + 1)
+                dfs(u, v - 1)
 
         m, n, res = len(grid), len(grid[0]), 0
         for i in range(m):
             for j in range(n):
                 if grid[i][j] == '1':
-                    self.dfs(grid, i, j)
                     res += 1
-
+                    dfs(i, j)
         return res
-
-    def dfs(self, grid: List[List[str]], x: int, y: int) -> None:
-        m, n = len(grid), len(grid[0])
-        if 0 <= x < m and 0 <= y < n and grid[x][y] == '1':
-            grid[x][y] = '0'
-            self.dfs(grid, x + 1, y)
-            self.dfs(grid, x - 1, y)
-            self.dfs(grid, x, y + 1)
-            self.dfs(grid, x, y - 1)

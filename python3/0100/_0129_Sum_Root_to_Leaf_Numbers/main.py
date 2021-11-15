@@ -1,24 +1,16 @@
 from python3.common.define import TreeNode
-from typing import List
+from typing import Optional
 
 
 class Solution:
-    def sumNumbers(self, root: TreeNode) -> int:
-        if not root:
-            return 0
+    def sumNumbers(self, root: Optional[TreeNode]) -> int:
+        def dfs(node, cur):
+            if not node:
+                return 0
 
-        nums = []
-        self.sumNumbersHelper(nums, root, 0)
-        return sum(nums)
+            cur = cur * 10 + node.val
+            if not node.left and not node.right:
+                return cur
+            return dfs(node.left, cur) + dfs(node.right, cur)
 
-    def sumNumbersHelper(self, nums: List[int], root: TreeNode, cur: int):
-        cur = cur * 10 + root.val
-        if not root.left and not root.right:
-            nums.append(cur)
-        elif not root.left:
-            self.sumNumbersHelper(nums, root.right, cur)
-        elif not root.right:
-            self.sumNumbersHelper(nums, root.left, cur)
-        else:
-            self.sumNumbersHelper(nums, root.left, cur)
-            self.sumNumbersHelper(nums, root.right, cur)
+        return dfs(root, 0)

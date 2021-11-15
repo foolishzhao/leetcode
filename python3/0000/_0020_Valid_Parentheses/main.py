@@ -1,19 +1,16 @@
 class Solution:
     def isValid(self, s: str) -> bool:
+        st = list()
         dt = {
-            ')': '(',
-            ']': '[',
-            '}': '{',
+            '(': ')',
+            '[': ']',
+            '{': '}'
         }
-
-        st = []
         for c in s:
-            if c in dt.values():
-                st.append(c)
-            elif c in dt.keys():
-                if not st or dt[c] != st.pop():
-                    return False
+            if c in dt:
+                st.append(dt[c])
             else:
-                return False
-
+                if not st or st[-1] != c:
+                    return False
+                st.pop()
         return not st

@@ -3,14 +3,13 @@ class Solution:
         if not s:
             return 0
 
-        n, i = len(s), 1
-        dp = [0] * (n + 1)
-        while i < n:
-            if s[i] == ')':
-                j = i - dp[i] - 1
-                if j >= 0 and s[j] == '(':
-                    dp[i + 1] = dp[i] + dp[j] + 2
-
-            i += 1
-
+        n = len(s)
+        dp = [0] * n
+        for i in range(n - 2, -1, -1):
+            if s[i] == '(':
+                j = i + dp[i + 1] + 1
+                if j < n and s[j] == ')':
+                    dp[i] = dp[i + 1] + 2
+                    if j + 1 < n:
+                        dp[i] += dp[j + 1]
         return max(dp)

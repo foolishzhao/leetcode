@@ -3,39 +3,32 @@ from typing import List
 
 class Solution:
     def maxNumber(self, nums1: List[int], nums2: List[int], k: int) -> List[int]:
-        m, n = len(nums1), len(nums2)
-        res = []
-        for i in range(k + 1):
-            j = k - i
-            if i > m or j > n:
+        def merge(arr1, arr2):
+            arr3 = list()
+            while arr1 or arr2:
+                if arr1 > arr2:
+                    arr3.append(arr1[0])
+                    arr1 = arr1[1:]
+                else:
+                    arr3.append(arr2[0])
+                    arr2 = arr2[1:]
+            return arr3
+
+        def helper(arr1, k):
+            st = list()
+            for i, v in enumerate(arr1):
+                while st and st[-1] < v and len(st) + len(arr1) - i - 1 >= k:
+                    st.pop()
+
+                if len(st) < k:
+                    st.append(v)
+            return st
+
+        m, n, res = len(nums1), len(nums2), list()
+        for u in range(k + 1):
+            v = k - u
+            if u > m or v > n:
                 continue
-            res = max(res, self.mergeHelper(self.maxNumberHelper(nums1, i), self.maxNumberHelper(nums2, j)))
 
+            res = max(res, merge(helper(nums1, u), helper(nums2, v)))
         return res
-
-    # can compare list directly
-    # max can work on list of list
-    def mergeHelper(self, nums1, nums2):
-        res = []
-        while nums1 or nums2:
-            if nums1 > nums2:
-                res.append(nums1[0])
-                nums1 = nums1[1:]
-            else:
-                res.append(nums2[0])
-                nums2 = nums2[1:]
-
-        return res
-
-    def maxNumberHelper(self, nums, k) -> List[int]:
-        n = len(nums)
-
-        st = []
-        for i, num in enumerate(nums):
-            while st and num > st[-1] and len(st) + n - i > k:
-                st.pop()
-
-            if len(st) < k:
-                st.append(num)
-
-        return st
