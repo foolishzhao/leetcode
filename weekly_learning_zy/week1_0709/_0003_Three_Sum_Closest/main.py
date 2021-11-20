@@ -21,9 +21,24 @@ class Solution:
                 else:
                     left=left+1
         return res
+
+    def test(self,nums):
+        print nums[1:5]
+        print nums[:]
+        print nums[1:3]
+        print sum(nums[-2:-3])
+        nums.append('ddd')
+        print nums[:]
+        del nums[len(nums)-1]
+        print nums[:]
+    def threeSumClo(self,nums,target):
+        l = len(nums)
+        nums.sort()
+
 if __name__ == '__main__':
     ress = Solution().threeSumClosest([-1, 2, 1, -4,1],1)
     print(ress)
+    ##Solution().test([1,2,3,4,5,6])
 
 
 

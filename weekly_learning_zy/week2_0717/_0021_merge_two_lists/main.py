@@ -1,4 +1,4 @@
-from python3.common.define import ListNode
+wfrom python3.common.define import ListNode
 class Solution:
     def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
         res = ListNode(None)
