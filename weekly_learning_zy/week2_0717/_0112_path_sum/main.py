@@ -23,3 +23,17 @@ class Solution:
             if  root.right:
                 self.dfs(root.right,target - root.val,res)
 
+    def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
+        if not root:
+            return False
+        st = []
+        st.append((root, targetSum - root.val))
+        while st:
+            cur, v = st.pop()
+            if not cur.left and not cur.right and v == 0:
+                return True
+            if cur.left:
+                st.append((cur.left, v - cur.left.val))
+            if cur.right:
+                st.append((cur.right, v - cur.right.val))
+        return False

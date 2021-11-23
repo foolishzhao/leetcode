@@ -4,6 +4,7 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+import collections
 from typing import Optional
 from python3.common.define import TreeNode
 class Solution:
@@ -11,19 +12,13 @@ class Solution:
 
         if not root:
             return 0
-        depth = 1
-        if root and root.left and root.right:
-            depth += max(self.maxDepth(root.left), self.maxDepth(root.right))
-        elif not root.left:
-            depth += self.maxDepth(root.right)
-        else:
-            depth += self.maxDepth(root.left)
-        return depth
+        return 1+max(self.maxDepth(root.left), self.maxDepth(root.right))
+
 
     # BFS
     def maxDepth2(self, root: Optional[TreeNode]) -> int:
 
-        if not root:ds
+        if not root:
             return 0
         depth = 0
         queue = collections.deque()
@@ -38,3 +33,23 @@ class Solution:
                 if node.right:
                     queue.append(node.right)
         return depth
+
+    # BFS
+def maxDepth(self, root: Optional[TreeNode]) -> int:
+    if not root:
+        return 0
+    st = [root]
+    ans = 0
+    while st:
+        nextlevel = []
+        while st:
+            cur = st.pop()
+            if cur.left:
+                nextlevel.append(cur.left)
+            if cur.right:
+                nextlevel.append(cur.right)
+        st = nextlevel
+        ans += 1
+    return ans
+
+

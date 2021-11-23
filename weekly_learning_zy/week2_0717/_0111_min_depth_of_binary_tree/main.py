@@ -19,3 +19,26 @@ class Solution:
             return self.minDepth(root.right) + 1
         else:
             return self.minDepth(root.left) + 1
+
+    def minDepth(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+        st = [root]
+        height = 0
+        end = True
+        while st and end:
+            nextlevel = []
+            for i in range(len(st)):
+                cur = st.pop()
+                if cur.left:
+                    nextlevel.append(cur.left)
+                if cur.right:
+                    nextlevel.append(cur.right)
+                if not cur.left and not cur.right:
+                    height += 1
+                    end = False
+                    break
+            if end:
+                height += 1
+                st = nextlevel
+        return height
