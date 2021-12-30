@@ -18,3 +18,4 @@ class Solution:
                 heapq.heappush(pq, (lists[idx].val, idx))
 
         return dummy.next
+
