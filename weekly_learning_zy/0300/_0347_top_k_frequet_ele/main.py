@@ -23,3 +23,20 @@ class Solution:
         for i in range(k):
             res.append(heapq.heappop(max_heap)[1])
         return res
+
+    class Solution:
+        def topKFrequent(self, nums, k):
+            res = []
+            dic = Counter(nums)
+            pq = list(list())
+            for key, val in dic.items():
+                if len(pq) >= k:
+                    if val > pq[0][0]:
+                        heapq.heappop(pq)
+                        heapq.heappush(pq, [val, key])
+                else:
+                    heapq.heappush(pq, [val, key])
+            for i in range(len(pq)):
+                res.append(pq[i][1])
+            return res
+
